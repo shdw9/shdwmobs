@@ -13,6 +13,7 @@ import org.bukkit.entity.Piglin;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Spider;
 import org.bukkit.entity.Zombie;
+import org.bukkit.entity.Chicken;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -59,6 +60,10 @@ public class TieredMobs extends JavaPlugin implements Listener {
   ItemStack boner;
   
   ItemMeta bonerMeta;
+  
+  ItemStack chicken;
+  
+  ItemMeta chickenMeta;
   
   public TieredMobs() {
 	  
@@ -134,6 +139,15 @@ public class TieredMobs extends JavaPlugin implements Listener {
     this.bonerMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false);
     this.bonerMeta.addEnchant(Enchantment.DAMAGE_ALL, 2, false);
     this.boner.setItemMeta(this.bonerMeta);
+    
+    this.chicken = new ItemStack(Material.COOKED_CHICKEN);
+    this.chickenMeta = this.chicken.getItemMeta();
+    String drchicken = getConfig().getString("ChickenName");
+    this.chickenMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', drchicken));
+    this.chickenMeta.addEnchant(Enchantment.LURE,  2,  false);
+    this.chickenMeta.addEnchant(Enchantment.MENDING, 1, false);
+    this.chickenMeta.addEnchant(Enchantment.VANISHING_CURSE, 1, false);
+    this.chicken.setItemMeta(this.chickenMeta);
   }
   
   @EventHandler
@@ -157,12 +171,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
   public void onZombieKilled(EntityDeathEvent e) {
     if (e.getEntity() instanceof Zombie && e.getEntity().getCustomName() != null) {
       Zombie zombie = (Zombie)e.getEntity();
-      if (zombie.getCustomName().equals(ChatColor.GRAY + "T1 ZOMBIE")) {
-        e.getDrops().add(new ItemStack(Material.ROTTEN_FLESH, 3));
-      } else if (zombie.getCustomName().equals(ChatColor.BLUE + "T2 ZOMBIE")) {
-        e.getDrops().add(new ItemStack(Material.IRON_INGOT, 5));
-        e.getDrops().add(new ItemStack(Material.ROTTEN_FLESH, 5));
-      } else if (zombie.getCustomName().equals(ChatColor.GOLD + "shdwZombie")) {
+      if (zombie.getCustomName().equals(ChatColor.GOLD + "shdwZombie")) {
         e.getDrops().clear();
         e.getDrops().add(new ItemStack(Material.ROTTEN_FLESH, 5));
         Random ran = new Random();
@@ -195,12 +204,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
   public void onSkeletonKilled(EntityDeathEvent e) {
     if (e.getEntity() instanceof Skeleton && e.getEntity().getCustomName() != null) {
       Skeleton skeleton = (Skeleton)e.getEntity();
-      if (skeleton.getCustomName().equals(ChatColor.GRAY + "T1 SKELETON")) {
-        e.getDrops().add(new ItemStack(Material.BONE, 3));
-      } else if (skeleton.getCustomName().equals(ChatColor.BLUE + "T2 SKELETON")) {
-        e.getDrops().add(new ItemStack(Material.BOW, 1));
-        e.getDrops().add(new ItemStack(Material.BONE, 5));
-      } else if (skeleton.getCustomName().equals(ChatColor.GOLD + "shdwSkeleton")) {
+      if (skeleton.getCustomName().equals(ChatColor.GOLD + "shdwSkeleton")) {
         e.getDrops().clear();
         e.getDrops().add(new ItemStack(Material.BONE, 5));
         Random ran = new Random();
@@ -232,12 +236,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
   public void onCreeperKilled(EntityDeathEvent e) {
     if (e.getEntity() instanceof Creeper && e.getEntity().getCustomName() != null) {
       Creeper creeper = (Creeper)e.getEntity();
-      if (creeper.getCustomName().equals(ChatColor.GRAY + "T1 CREEPER")) {
-        e.getDrops().add(new ItemStack(Material.GUNPOWDER, 3));
-      } else if (creeper.getCustomName().equals(ChatColor.BLUE + "T2 CREEPER")) {
-        e.getDrops().add(new ItemStack(Material.TNT, 1));
-        e.getDrops().add(new ItemStack(Material.GUNPOWDER, 5));
-      } else if (creeper.getCustomName().equals(ChatColor.GOLD + "shdwCreeper")) {
+      if (creeper.getCustomName().equals(ChatColor.GOLD + "shdwCreeper")) {
         e.getDrops().clear();
         Random ran = new Random();
         e.getDrops().add(new ItemStack(Material.GUNPOWDER, 5));
@@ -268,13 +267,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
   public void onSpiderKilled(EntityDeathEvent e) {
     if (e.getEntity() instanceof Spider && e.getEntity().getCustomName() != null) {
       Spider spider = (Spider)e.getEntity();
-      if (spider.getCustomName().equals(ChatColor.GRAY + "T1 SPIDER")) {
-        e.getDrops().add(new ItemStack(Material.STRING, 3));
-        e.getDrops().add(new ItemStack(Material.SPIDER_EYE, 2));
-      } else if (spider.getCustomName().equals(ChatColor.BLUE + "T2 SPIDER")) {
-        e.getDrops().add(new ItemStack(Material.STRING, 5));
-        e.getDrops().add(new ItemStack(Material.SPIDER_EYE, 4));
-      } else if (spider.getCustomName().equals(ChatColor.GOLD + "shdwSpider")) {
+      if (spider.getCustomName().equals(ChatColor.GOLD + "shdwSpider")) {
         e.getDrops().clear();
         e.getDrops().add(new ItemStack(Material.STRING, 5));
         e.getDrops().add(new ItemStack(Material.SPIDER_EYE, 4));
@@ -306,11 +299,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
   public void onEndermanKilled(EntityDeathEvent e) {
     if (e.getEntity() instanceof Enderman && e.getEntity().getCustomName() != null) {
       Enderman enderman = (Enderman)e.getEntity();
-      if (enderman.getCustomName().equals(ChatColor.GRAY + "T1 ENDERMAN")) {
-        e.getDrops().add(new ItemStack(Material.ENDER_PEARL, 2));
-      } else if (enderman.getCustomName().equals(ChatColor.BLUE + "T2 ENDERMAN")) {
-        e.getDrops().add(new ItemStack(Material.ENDER_PEARL, 3));
-      } else if (enderman.getCustomName().equals(ChatColor.GOLD + "shdwEnderman")) {
+      if (enderman.getCustomName().equals(ChatColor.GOLD + "shdwEnderman")) {
         e.getDrops().clear();
         e.getDrops().add(new ItemStack(Material.ENDER_PEARL, 3));
         Random ran = new Random();
@@ -342,11 +331,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
   public void onPiglinKilled(EntityDeathEvent e) {
     if (e.getEntity() instanceof Piglin && e.getEntity().getCustomName() != null) {
       Piglin piglin = (Piglin)e.getEntity();
-      if (piglin.getCustomName().equals(ChatColor.GRAY + "T1 ENDERMAN")) {
-        e.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 2));
-      } else if (piglin.getCustomName().equals(ChatColor.BLUE + "T2 ENDERMAN")) {
-        e.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 3));
-      } else if (piglin.getCustomName().equals(ChatColor.GOLD + "shdwPiglin")) {
+      if (piglin.getCustomName().equals(ChatColor.GOLD + "shdwPiglin")) {
         e.getDrops().clear();
         e.getDrops().add(new ItemStack(Material.GOLD_INGOT, 3));
         Random ran = new Random();
@@ -357,4 +342,37 @@ public class TieredMobs extends JavaPlugin implements Listener {
       } 
     } 
   }
+  
+  @EventHandler
+  public void onChickenSpawn(CreatureSpawnEvent e) {
+    if (e.getEntity() instanceof Chicken) {
+      Random ran = new Random();
+      int choice = ran.nextInt(100) + 1;
+      int percentage = getConfig().getInt("ChickenPercentage");
+      if (choice < percentage) {
+        Chicken chicken = (Chicken)e.getEntity();
+        chicken.setCustomName(ChatColor.GOLD + "DrChicken");
+        e.getEntity().getEquipment().setHelmet(this.crown);
+        chicken.setMaxHealth(chicken.getHealth() * 10.0D);
+        chicken.setHealth(chicken.getMaxHealth());
+      } 
+    } 
+  }
+  
+  @EventHandler
+  public void onChickenKilled(EntityDeathEvent e) {
+    if (e.getEntity() instanceof Piglin && e.getEntity().getCustomName() != null) {
+      Chicken chicken = (Chicken)e.getEntity();
+       if (chicken.getCustomName().equals(ChatColor.GOLD + "DrChicken")) {
+        e.getDrops().clear();
+        e.getDrops().add(new ItemStack(Material.COOKED_CHICKEN, 3));
+        Random ran = new Random();
+        int choice = ran.nextInt(100) + 1;
+        int dropPer = getConfig().getInt("DropPercentage");
+        if (choice < dropPer)
+          e.getDrops().add(this.chicken); 
+      } 
+    } 
+  }
+  
 }

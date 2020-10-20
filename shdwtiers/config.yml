@@ -28,3 +28,6 @@ PiglinHelmetName: '&6Piglin &6Crown'
 SkeletonChestplateName: '&4shdwChestplate'
 BonerName: '&8Shawn &8Lee &8Boner'
 
+# DrChicken drop
+ChickenName: '&9DrChicken'
+ChickenPercentage: 3
