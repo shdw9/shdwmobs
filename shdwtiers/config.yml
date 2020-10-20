@@ -1,0 +1,30 @@
+############################################################
+# +------------------------------------------------------+ #
+# |                      shdwMobs                        | #
+# +------------------------------------------------------+ #
+############################################################
+
+# shdw mob spawn percentage
+Percentage: 10
+
+# shdw mob item drop percentage
+DropPercentage: 20
+# shdwEnderman drops
+BowName: '&4shdwBow'
+
+# shdwZombie drops
+ZombieHelmetName: '&4shdwHelmet'
+
+# shdwCreeper drops
+CreeperLeggingsName: '&4shdwLeggings'
+
+# shdwSpider drops
+SpiderBootsName: '&4shdwBoots'
+
+# shdwPiglin drops
+PiglinHelmetName: '&6Piglin &6Crown'
+
+# shdwSkeleton drops
+SkeletonChestplateName: '&4shdwChestplate'
+BonerName: '&8Shawn &8Lee &8Boner'
+
