@@ -14,6 +14,7 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Spider;
 import org.bukkit.entity.Zombie;
 import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Villager;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,36 +35,31 @@ public class TieredMobs extends JavaPlugin implements Listener {
   }
   
   ItemStack tpbow = new ItemStack(Material.BOW);
-  
   ItemMeta tpbowMeta = this.tpbow.getItemMeta();
   
   ItemStack helmet;
-  
   ItemMeta helmetMeta;
   
   ItemStack chestplate;
-  
   ItemMeta chestMeta;
   
   ItemStack leggings;
-  
   ItemMeta leggingsMeta;
   
   ItemStack boots;
-  
   ItemMeta bootsMeta;
   
   ItemStack crown;
-  
   ItemMeta crownMeta;
   
   ItemStack boner;
-  
   ItemMeta bonerMeta;
   
   ItemStack chicken;
-  
   ItemMeta chickenMeta;
+  
+  ItemStack villager;
+  ItemMeta villagerMeta;
   
   public TieredMobs() {
 	  
@@ -375,4 +371,14 @@ public class TieredMobs extends JavaPlugin implements Listener {
     } 
   }
   
+  @EventHandler
+  public void onVillagerKilled(EntityDeathEvent e) {
+    if (e.getEntity() instanceof Piglin && e.getEntity().getCustomName() != null) {
+      Villager villager = (Villager)e.getEntity();
+        e.getDrops().clear();
+        e.getDrops().add(new ItemStack(Material.BONE, 2));
+        e.getDrops().add(new ItemStack(Material.ROTTEN_FLESH, 2));
+      
+    } 
+  }
 }
