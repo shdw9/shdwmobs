@@ -373,7 +373,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
   
   @EventHandler
   public void onVillagerKilled(EntityDeathEvent e) {
-    if (e.getEntity() instanceof Piglin && e.getEntity().getCustomName() != null) {
+    if (e.getEntity() instanceof Villager && e.getEntity().getCustomName() != null) {
       Villager villager = (Villager)e.getEntity();
         e.getDrops().clear();
         e.getDrops().add(new ItemStack(Material.BONE, 2));
