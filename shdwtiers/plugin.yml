@@ -1,4 +1,4 @@
 name: shdwmobs
-version: 1.0
+version: 2.0
 main: shdwtiers.plugin.TieredMobs
 api-version: 1.13
