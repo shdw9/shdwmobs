@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Enderman;
@@ -155,8 +156,10 @@ public class TieredMobs extends JavaPlugin implements Listener {
       if (choice < percentage) {
         Zombie zombie = (Zombie)e.getEntity();
         zombie.setCustomName(ChatColor.GOLD + "shdwZombie");
-        e.getEntity().getEquipment().setHelmet(this.helmet);
-        e.getEntity().getEquipment().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
+        // e.getEntity().getEquipment().setHelmet(this.helmet);
+        e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
+        e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_HELMET));
+        e.getEntity().getEquipment().setItemInMainHand(new ItemStack(Material.NETHERITE_SWORD));
         zombie.setMaxHealth(zombie.getHealth() * 10.0D);
         zombie.setHealth(zombie.getMaxHealth());
       } 
@@ -190,8 +193,9 @@ public class TieredMobs extends JavaPlugin implements Listener {
         skeleton.setCustomName(ChatColor.GOLD + "shdwSkeleton");
         skeleton.setMaxHealth(skeleton.getHealth() * 10.0D);
         skeleton.setHealth(skeleton.getMaxHealth());
-        e.getEntity().getEquipment().setChestplate(this.chestplate);
-        e.getEntity().getEquipment().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
+        e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
+        e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_HELMET));
+        // e.getEntity().getEquipment().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
       } 
     } 
   }
@@ -221,8 +225,9 @@ public class TieredMobs extends JavaPlugin implements Listener {
       int percentage = getConfig().getInt("Percentage");
       if (choice < percentage) {
         Creeper creeper = (Creeper)e.getEntity();
+        creeper.setPowered(true);
         creeper.setCustomName(ChatColor.GOLD + "shdwCreeper");
-        creeper.setMaxHealth(creeper.getHealth() * 10.0D);
+        creeper.setMaxHealth(creeper.getHealth() * 5.0D);
         creeper.setHealth(creeper.getMaxHealth());
       } 
     } 
@@ -284,6 +289,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
       int percentage = getConfig().getInt("Percentage");
       if (choice < percentage) {
         Enderman enderman = (Enderman)e.getEntity();
+        enderman.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,9999999, 9999999));
         enderman.setCustomName(ChatColor.GOLD + "shdwEnderman");
         enderman.setMaxHealth(enderman.getHealth() * 10.0D);
         enderman.setHealth(enderman.getMaxHealth());
@@ -316,7 +322,9 @@ public class TieredMobs extends JavaPlugin implements Listener {
       if (choice < percentage) {
         Piglin piglin = (Piglin)e.getEntity();
         piglin.setCustomName(ChatColor.GOLD + "shdwPiglin");
-        e.getEntity().getEquipment().setHelmet(this.crown);
+        e.getEntity().getEquipment().setHelmet(new ItemStack(Material.NETHERITE_HELMET));
+        e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
+        e.getEntity().getEquipment().setItemInMainHand(new ItemStack(Material.NETHERITE_SWORD));
         piglin.setMaxHealth(piglin.getHealth() * 10.0D);
         piglin.setHealth(piglin.getMaxHealth());
       } 
