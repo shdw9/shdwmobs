@@ -156,7 +156,6 @@ public class TieredMobs extends JavaPlugin implements Listener {
       if (choice < percentage) {
         Zombie zombie = (Zombie)e.getEntity();
         zombie.setCustomName(ChatColor.GOLD + "shdwZombie");
-        // e.getEntity().getEquipment().setHelmet(this.helmet);
         e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
         e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_HELMET));
         e.getEntity().getEquipment().setItemInMainHand(new ItemStack(Material.NETHERITE_SWORD));
@@ -386,7 +385,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
         e.getDrops().clear();
         e.getDrops().add(new ItemStack(Material.BONE, 2));
         e.getDrops().add(new ItemStack(Material.ROTTEN_FLESH, 2));
-        // makes it feel like you committed a crime killing a villager
+        // makes it feel like you committed a crime killing a villager lol
     } 
   }
 }
