@@ -386,7 +386,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
         e.getDrops().clear();
         e.getDrops().add(new ItemStack(Material.BONE, 2));
         e.getDrops().add(new ItemStack(Material.ROTTEN_FLESH, 2));
-      
+        // makes it feel like you committed a crime killing a villager
     } 
   }
 }
