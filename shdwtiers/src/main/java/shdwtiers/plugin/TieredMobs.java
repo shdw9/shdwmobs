@@ -2,11 +2,14 @@ package shdwtiers.plugin;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.World;
 
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Enderman;
@@ -16,6 +19,11 @@ import org.bukkit.entity.Spider;
 import org.bukkit.entity.Zombie;
 import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Villager;
+import org.bukkit.entity.IronGolem;
+import org.bukkit.entity.Golem;
+import org.bukkit.entity.Player;
+
+import org.bukkit.Location;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,14 +33,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+
 
 public class TieredMobs extends JavaPlugin implements Listener {
   public void onEnable() {
     getConfig().options().copyDefaults();
     saveDefaultConfig();
     getServer().getPluginManager().registerEvents(this, (Plugin)this);
-    System.out.println("[shdwmobs] shdw mobs spawn percentage set to " + getConfig().getInt("Percentage") + "%");
-    System.out.println("[shdwmobs] shdw mobs item drop percentage set to "+ getConfig().getInt("DropPercentage") + "%");
+    System.out.println(ChatColor.GOLD + "[shdwmobs] shdw mobs spawn percentage set to " + ChatColor.GREEN + getConfig().getInt("Percentage") + "%");
+    System.out.println(ChatColor.GOLD + "[shdwmobs] shdw mobs item drop percentage set to "+ ChatColor.GREEN + getConfig().getInt("DropPercentage") + "%");
+    System.out.println(ChatColor.GOLD + "[shdwmobs] shdw mobs kill money set to " + ChatColor.GREEN + getConfig().getInt("shdwMoney"));
+    System.out.println(ChatColor.GOLD + "[shdwmobs] shdw mobs lightning on mob spawn set to " + ChatColor.GREEN + getConfig().getBoolean("lightningOnSpawn"));
   }
   
   ItemStack tpbow = new ItemStack(Material.BOW);
@@ -68,6 +81,8 @@ public class TieredMobs extends JavaPlugin implements Listener {
     this.tpbowMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', bowname));
     this.tpbowMeta.setUnbreakable(true);
     this.tpbowMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
+    this.tpbowMeta.addEnchant(Enchantment.ARROW_FIRE, 1, false);
+    this.tpbowMeta.addEnchant(Enchantment.VANISHING_CURSE, 1, false);
     ArrayList<String> lore = new ArrayList<>();
     this.tpbowMeta.setLore(lore);
     this.tpbow.setItemMeta(this.tpbowMeta);
@@ -154,16 +169,26 @@ public class TieredMobs extends JavaPlugin implements Listener {
       int choice = ran.nextInt(100) + 1;
       int percentage = getConfig().getInt("Percentage");
       if (choice < percentage) {
+    	  
         Zombie zombie = (Zombie)e.getEntity();
         zombie.setCustomName(ChatColor.GOLD + "shdwZombie");
+        
         e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
-        e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_HELMET));
+        e.getEntity().getEquipment().setHelmet(new ItemStack(Material.NETHERITE_HELMET));
         e.getEntity().getEquipment().setItemInMainHand(new ItemStack(Material.NETHERITE_SWORD));
+        
         zombie.setMaxHealth(zombie.getHealth() * 10.0D);
         zombie.setHealth(zombie.getMaxHealth());
+        
+        /*Location location = zombie.getLocation();
+        if (getConfig().getBoolean("lightningOnSpawn")){
+	        World world = zombie.getWorld();
+        	world.strikeLightningEffect(location); */
+        }
+        
       } 
     } 
-  }
+  
   
   @EventHandler
   public void onZombieKilled(EntityDeathEvent e) {
@@ -175,8 +200,13 @@ public class TieredMobs extends JavaPlugin implements Listener {
         Random ran = new Random();
         int choice = ran.nextInt(100) + 1;
         int dropPer = getConfig().getInt("DropPercentage");
-        if (choice < dropPer)
+        if (choice < dropPer) {
           e.getDrops().add(this.helmet); 
+        }
+        else {
+        	Player player = zombie.getKiller();
+        	giveMoney(player);
+        }
       } 
     } 
   }
@@ -188,16 +218,25 @@ public class TieredMobs extends JavaPlugin implements Listener {
       int choice = ran.nextInt(100) + 1;
       int percentage = getConfig().getInt("Percentage");
       if (choice < percentage) {
+    	  
         Skeleton skeleton = (Skeleton)e.getEntity();
         skeleton.setCustomName(ChatColor.GOLD + "shdwSkeleton");
         skeleton.setMaxHealth(skeleton.getHealth() * 10.0D);
         skeleton.setHealth(skeleton.getMaxHealth());
+        
         e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
-        e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_HELMET));
-        // e.getEntity().getEquipment().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
+        e.getEntity().getEquipment().setHelmet(new ItemStack(Material.NETHERITE_HELMET));
+        e.getEntity().getEquipment().setItemInMainHand(this.tpbow);
+        
+        /*Location location = skeleton.getLocation();
+        if (getConfig().getBoolean("lightningOnSpawn")){
+	        World world = skeleton.getWorld();
+        	world.strikeLightningEffect(location); */
+        }
+        
       } 
     } 
-  }
+  
   
   @EventHandler
   public void onSkeletonKilled(EntityDeathEvent e) {
@@ -209,9 +248,14 @@ public class TieredMobs extends JavaPlugin implements Listener {
         Random ran = new Random();
         int choice = ran.nextInt(100) + 1;
         int dropPer = getConfig().getInt("DropPercentage");
-        if (choice < dropPer)
+        if (choice < dropPer) {
           e.getDrops().add(this.chestplate); 
-          e.getDrops().add(this.boner);
+          // e.getDrops().add(this.boner);
+        }
+        else {
+        	Player player = skeleton.getKiller();
+        	giveMoney(player);
+        }
       } 
     } 
   }
@@ -223,14 +267,23 @@ public class TieredMobs extends JavaPlugin implements Listener {
       int choice = ran.nextInt(100) + 1;
       int percentage = getConfig().getInt("Percentage");
       if (choice < percentage) {
+    	  
         Creeper creeper = (Creeper)e.getEntity();
         creeper.setPowered(true);
         creeper.setCustomName(ChatColor.GOLD + "shdwCreeper");
+        
         creeper.setMaxHealth(creeper.getHealth() * 5.0D);
         creeper.setHealth(creeper.getMaxHealth());
+        
+        /*Location location = creeper.getLocation();
+        if (getConfig().getBoolean("lightningOnSpawn")){
+	        World world = creeper.getWorld();
+        	world.strikeLightningEffect(location); */
+        }
+        
       } 
     } 
-  }
+  
   
   @EventHandler
   public void onCreeperKilled(EntityDeathEvent e) {
@@ -242,8 +295,13 @@ public class TieredMobs extends JavaPlugin implements Listener {
         e.getDrops().add(new ItemStack(Material.GUNPOWDER, 5));
         int choice = ran.nextInt(100) + 1;
         int dropPer = getConfig().getInt("DropPercentage");
-        if (choice < dropPer)
+        if (choice < dropPer) {
           e.getDrops().add(this.leggings); 
+        }
+        else {
+        	Player player = creeper.getKiller();
+        	giveMoney(player);
+        }
       } 
     } 
   }
@@ -274,8 +332,13 @@ public class TieredMobs extends JavaPlugin implements Listener {
         Random ran = new Random();
         int choice = ran.nextInt(100) + 1;
         int dropPer = getConfig().getInt("DropPercentage");
-        if (choice < dropPer)
+        if (choice < dropPer) {
           e.getDrops().add(this.boots); 
+        }
+        else {
+        	Player player = spider.getKiller();
+        	giveMoney(player);
+        }
       } 
     } 
   }
@@ -306,8 +369,13 @@ public class TieredMobs extends JavaPlugin implements Listener {
         Random ran = new Random();
         int choice = ran.nextInt(100) + 1;
         int dropPer = getConfig().getInt("DropPercentage");
-        if (choice < dropPer)
+        if (choice < dropPer) {
           e.getDrops().add(this.tpbow); 
+        }
+        else {
+        	Player player = enderman.getKiller();
+        	giveMoney(player);
+        }
       } 
     } 
   }
@@ -319,11 +387,20 @@ public class TieredMobs extends JavaPlugin implements Listener {
       int choice = ran.nextInt(100) + 1;
       int percentage = getConfig().getInt("Percentage");
       if (choice < percentage) {
+    	  
         Piglin piglin = (Piglin)e.getEntity();
         piglin.setCustomName(ChatColor.GOLD + "shdwPiglin");
+        
         e.getEntity().getEquipment().setHelmet(new ItemStack(Material.NETHERITE_HELMET));
         e.getEntity().getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
         e.getEntity().getEquipment().setItemInMainHand(new ItemStack(Material.NETHERITE_SWORD));
+        
+        /*Location location = piglin.getLocation();
+        if (getConfig().getBoolean("lightningOnSpawn")){
+	        World world = piglin.getWorld();
+        	world.strikeLightningEffect(location); 
+        }*/
+        
         piglin.setMaxHealth(piglin.getHealth() * 10.0D);
         piglin.setHealth(piglin.getMaxHealth());
       } 
@@ -340,8 +417,13 @@ public class TieredMobs extends JavaPlugin implements Listener {
         Random ran = new Random();
         int choice = ran.nextInt(100) + 1;
         int dropPer = getConfig().getInt("DropPercentage");
-        if (choice < dropPer)
+        if (choice < dropPer) {
           e.getDrops().add(this.crown); 
+        }
+        else {
+        	Player player = piglin.getKiller();
+        	giveMoney(player);
+        }
       } 
     } 
   }
@@ -353,9 +435,12 @@ public class TieredMobs extends JavaPlugin implements Listener {
       int choice = ran.nextInt(100) + 1;
       int percentage = getConfig().getInt("ChickenPercentage");
       if (choice < percentage) {
+    	  
         Chicken chicken = (Chicken)e.getEntity();
         chicken.setCustomName(ChatColor.GOLD + "DrChicken");
+        
         e.getEntity().getEquipment().setHelmet(this.crown);
+        
         chicken.setMaxHealth(chicken.getHealth() * 10.0D);
         chicken.setHealth(chicken.getMaxHealth());
       } 
@@ -364,7 +449,7 @@ public class TieredMobs extends JavaPlugin implements Listener {
   
   @EventHandler
   public void onChickenKilled(EntityDeathEvent e) {
-    if (e.getEntity() instanceof Piglin && e.getEntity().getCustomName() != null) {
+    if (e.getEntity() instanceof Chicken && e.getEntity().getCustomName() != null) {
       Chicken chicken = (Chicken)e.getEntity();
        if (chicken.getCustomName().equals(ChatColor.GOLD + "DrChicken")) {
         e.getDrops().clear();
@@ -380,12 +465,60 @@ public class TieredMobs extends JavaPlugin implements Listener {
   
   @EventHandler
   public void onVillagerKilled(EntityDeathEvent e) {
-    if (e.getEntity() instanceof Villager && e.getEntity().getCustomName() != null) {
+    if (e.getEntity() instanceof Villager) {
       Villager villager = (Villager)e.getEntity();
         e.getDrops().clear();
         e.getDrops().add(new ItemStack(Material.BONE, 2));
         e.getDrops().add(new ItemStack(Material.ROTTEN_FLESH, 2));
-        // makes it feel like you committed a crime killing a villager lol
     } 
   }
+  
+  @EventHandler
+  public void onIronGolemSpawn(CreatureSpawnEvent e) {
+	    if (e.getEntity() instanceof IronGolem) {
+	    	
+	    	IronGolem golem = (IronGolem)e.getEntity();
+	    	
+	    	golem.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION ,9999999, 9999999));
+	    	golem.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE ,9999999, 3));
+	        golem.setInvulnerable(true);
+	        golem.setPersistent(true);
+	        
+	        Random ran = new Random();
+	        int choice = ran.nextInt(100) + 1;
+	        golem.setCustomName(ChatColor.GOLD + "Albion " + choice);
+	        
+	        Location location = golem.getLocation();
+	        if (getConfig().getBoolean("lightningOnSpawn")){
+		        World world = golem.getWorld();
+	        	world.strikeLightningEffect(location); 
+	        }
+	        
+	        ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+	        String command = "broadcast Albion " + choice + " was spawned at " + coords(location);
+	        Bukkit.dispatchCommand(console, command);
+	    } 
+  } 
+  
+  public void giveMoney(Player p) {
+	  int shdwMoney = getConfig().getInt("shdwMoney");
+	  ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+      String command = "eco give " + p.getPlayerListName() + " " + shdwMoney;
+      Bukkit.dispatchCommand(console, command);
+  }
+  
+  public static String coords(Location n) {
+
+	  int x = n.getBlockX();
+	  
+	  int y = n.getBlockY();
+	  
+	  int z = n.getBlockZ();
+		
+	  String coords = x + ", " + y + ", " + z;
+      
+	  return coords;
+  }
+  
 }
+

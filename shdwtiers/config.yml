@@ -8,12 +8,15 @@
 #    /__/|_||_|\__,_|  \_/\_/ |_|_|_| \___/|_.__//__/    #
 ##########################################################                    
 
+lightningOnSpawn: true
+
+shdwMoney: 500
 
 # shdw mob spawn percentage
-Percentage: 10
+Percentage: 5
 
 # shdw mob item drop percentage
-DropPercentage: 20
+DropPercentage: 10
 
 # shdwEnderman drops
 BowName: '&4shdwBow'
