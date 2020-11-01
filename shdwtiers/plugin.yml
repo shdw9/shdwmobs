@@ -2,3 +2,11 @@ name: shdwmobs
 version: 2.0
 main: shdwtiers.plugin.TieredMobs
 api-version: 1.13
+permissions:
+    shdwmobs.use:
+        description: spawn shdwmob items
+        default: op
+commands: 
+    shdwmobs:
+        description: iykyk
+        usage: /shdwmobs help

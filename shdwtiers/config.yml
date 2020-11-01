@@ -1,16 +1,13 @@
-##########################################################
-#            )   (                             )         #
-#         ( /(   )\ )  (  (       )         ( /(         #
-#     (   )\()) (()/(  )\))(     (      (   )\()) (      #
-#     )\ ((_)\   ((_))((_)()\    )\  '  )\ ((_)\  )\     #
-#    ((_)| |(_)  _| | _(()((_) _((_))  ((_)| |(_)((_)    #
-#    (_-<| ' \ / _` | \ V  V /| '  \()/ _ \| '_ \(_-<    #
-#    /__/|_||_|\__,_|  \_/\_/ |_|_|_| \___/|_.__//__/    #
-##########################################################                    
+                  
+############################################################
+# +------------------------------------------------------+ #
+# |                      shdwMobs                        | #
+# +------------------------------------------------------+ #
+############################################################
 
 lightningOnSpawn: true
 
-shdwMoney: 500
+printConsoleSpawns: true
 
 # shdw mob spawn percentage
 Percentage: 5
@@ -18,23 +15,34 @@ Percentage: 5
 # shdw mob item drop percentage
 DropPercentage: 10
 
+# Halloween Drops
+shdwWitherSkeleName: 'spookyWitherSkeleton'
+halloEventWeapon: '&6&ldeath&8&lSickle'
+
 # shdwEnderman drops
-BowName: '&4shdwBow'
+shdwEndermanName: 'spookyEnderman'
+BowName: '&ethunderBow'
 
 # shdwZombie drops
-ZombieHelmetName: '&4shdwHelmet'
-
-# shdwCreeper drops
-CreeperLeggingsName: '&4shdwLeggings'
-
-# shdwSpider drops
-SpiderBootsName: '&4shdwBoots'
-
-# shdwPiglin drops
-PiglinHelmetName: '&6Piglin &6Crown'
+shdwZombieName: 'spookyZombie'
+ZombieHelmetName: '&6&lspooky&8&lHelmet'
 
 # shdwSkeleton drops
-SkeletonChestplateName: '&4shdwChestplate'
+shdwSkeletonName: 'spookySkeleton'
+SkeletonChestplateName: '&6&lspooky&8&lChestplate'
+
+# shdwCreeper drops
+shdwCreeperName: 'spookyCreeper'
+CreeperLeggingsName: '&6&lspooky&8&lLeggings'
+
+# shdwSpider drops
+shdwSpiderName: 'spookySpider'
+SpiderBootsName: '&6&lspooky&8&lBoots'
+
+# shdwPiglin drops
+shdwPiglinName: 'shdwPiglin'
+PiglinHelmetName: '&6Piglin &6Crown'
+
 BonerName: '&8Shawn &8Lee &8Boner'
 
 # DrChicken drop
