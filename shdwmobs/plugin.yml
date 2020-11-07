@@ -1,0 +1,13 @@
+name: shdwmobs
+version: 2.0
+main: me.shdwslyr.shdwmobs.Main
+api-version: 1.13
+softdepend: [TitleAPI]
+permissions:
+    shdwmobs.use:
+        description: spawn shdwmob items
+        default: op
+commands: 
+    shdwmobs:
+        description: iykyk
+        usage: /shdwmobs help

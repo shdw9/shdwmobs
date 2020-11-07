@@ -1,0 +1,47 @@
+                  
+############################################################
+# +------------------------------------------------------+ #
+# |                      shdwMobs                        | #
+# +------------------------------------------------------+ #
+############################################################
+
+lightningOnSpawn: true
+
+printConsoleSpawns: true
+
+# shdw mob spawn percentage
+Percentage: 5
+
+# shdw mob item drop percentage
+DropPercentage: 10
+
+# shdwEnderman drops
+shdwEndermanName: 'frostyEnderman'
+BowName: '&ethunderBow'
+
+# shdwZombie drops
+shdwZombieName: 'frostyZombie'
+ZombieHelmetName: '&b&lfrosty&8&lHelmet'
+
+# shdwSkeleton drops
+shdwSkeletonName: 'frostySkeleton'
+SkeletonChestplateName: '&b&lfrosty&8&lChestplate'
+
+# shdwCreeper drops
+shdwCreeperName: 'frostyCreeper'
+CreeperLeggingsName: '&b&lfrosty&8&lLeggings'
+
+# shdwSpider drops
+shdwSpiderName: 'frostySpider'
+SpiderBootsName: '&b&lfrosty&8&lBoots'
+
+# shdwPiglin drops
+shdwPiglinName: 'shdwPiglin'
+PiglinHelmetName: '&6Piglin &6Crown'
+
+BonerName: '&8Shawn &8Lee &8Boner'
+
+# DrChicken drop
+ChickenName: '&9DrChicken'
+ChickenPercentage: 3
+
